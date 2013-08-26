@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string>
 #include "thread.h"
 #include "workqueue.h"
@@ -15,4 +13,14 @@ public:
 
     const char* getMessage() { return itsMessage.c_str(); }
     int getNumber() { return itsNumber; }
+};
+
+class ConsumerThread : public Thread
+{
+    WQueue<WorkItem *>& itsQueue;
+
+public:
+    ConsumerThread(WQueue<WorkItem *>& theQueue) : itsQueue(theQueue) {}
+    
+    void* run();
 };
